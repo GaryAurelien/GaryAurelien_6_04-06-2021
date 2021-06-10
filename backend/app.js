@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
 
+
 /**************************Sécurité**************************/
 //Helmet vous aide à protéger votre application de certaines des vulnérabilités bien connues du Web en configurant de manière appropriée des en-têtes HTTP.
 const helmet = require('helmet');
@@ -30,6 +31,11 @@ app.use((req, res, next) => {
 });
 
 app.use(cors());
+/*app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*"); // mettre à jour pour correspondre au domaine à partir duquel vous ferez la demande
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });*/
 app.use(helmet());
 app.use(bodyParser.json());
 
