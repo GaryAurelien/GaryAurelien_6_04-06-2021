@@ -3,6 +3,7 @@ const fs = require('fs');
 
 
 /*******************************************Crée sauce****************************************************/
+
 exports.createSauce = (req, res, next) => {
   const thingObject = JSON.parse(req.body.sauce);
   delete thingObject._id;
@@ -10,27 +11,26 @@ exports.createSauce = (req, res, next) => {
     ...thingObject,
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
   });
-  //resize images
-        const imageToResize = `${req.file.path}`
-        resizeImages(imageToResize);
   thing.save()
     .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
     .catch(error => res.status(400).json({ error }));
 };
 
 /*******************************************Modification sauce*********************************************/
+
 exports.modifySauce = (req, res, next) => {
   const thingObject = req.file ?
     {
       ...JSON.parse(req.body.thing),
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body };
-  Sauce.updateOne({ _id: req.params.id }, { ...thingObject, _id: req.params.id })
+    Sauce.updateOne({ _id: req.params.id }, { ...thingObject, _id: req.params.id })
     .then(() => res.status(200).json({ message: 'Objet modifié !'}))
     .catch(error => res.status(400).json({ error }));
 };
 
 /*******************************************Supprimé sauce****************************************************/
+
 exports.deleteSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then(thing => {
@@ -45,6 +45,7 @@ exports.deleteSauce = (req, res, next) => {
 };
 
 /*******************************************get one sauce****************************************************/
+
 exports.getOneSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then(thing => res.status(200).json(thing))
@@ -52,6 +53,7 @@ exports.getOneSauce = (req, res, next) => {
 };
 
 /*******************************************get all sauce****************************************************/
+
 exports.getAllSauce = (req, res, next) => {
   Sauce.find()
     .then(things => res.status(200).json(things))
@@ -59,6 +61,7 @@ exports.getAllSauce = (req, res, next) => {
 };
 
 /*******************************************Like Dislike****************************************************/
+
 exports.likeOrDislikeSauce = async(req, res, next)=>{
   try {
     const userId = req.body.userId;
