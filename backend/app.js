@@ -10,6 +10,8 @@ const path = require('path');
 
 //Helmet vous aide à protéger votre application de certaines des vulnérabilités bien connues du Web en configurant de manière appropriée des en-têtes HTTP.
 const helmet = require('helmet');
+//dotenv
+require('dotenv').config()
 
 /**************************Importation route et divers**************************/
 
@@ -17,11 +19,11 @@ const saucesRoutes = require('./routes/sauces')
 const userRoutes = require('./routes/user')
 
 
-mongoose.connect('mongodb+srv://Aurelien:Clemence59@cluster0.nqq5n.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+mongoose.connect( process.env.DB_URL ,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
-  .catch(() => console.log('Connexion à MongoDB échouée !'));
+  .catch(() => console.log('Connexion à MongoDB échouée !'));;
 
 const app =  express();
 
